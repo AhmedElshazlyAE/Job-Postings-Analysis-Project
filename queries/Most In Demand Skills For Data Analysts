@@ -1,3 +1,5 @@
+--Most In Demand Skills for Data analysts
+
 SELECT
     skills_dim.skills,
     COUNT(skills_job_dim.skill_id) AS demand
@@ -5,6 +7,8 @@ SELECT
 FROM
     skills_job_dim
 
+
+--This time I am doing double INNER JOINs Instead of joining the two table in a subquery
 INNER JOIN
     skills_dim
     ON skills_job_dim.skill_id = skills_dim.skill_id

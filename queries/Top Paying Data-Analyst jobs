@@ -1,3 +1,5 @@
+--Top Paying Data Analyst-Jobs
+
 SELECT 
     job_id,
     job_title,
@@ -5,9 +7,13 @@ SELECT
     job_schedule_type,
     job_posted_date::DATE,
     salary_year_avg
+    
 FROM job_postings_fact
+
 WHERE
-    salary_year_avg IS NOT NULL AND
-    job_title_short = 'Data Analyst'
-ORDER BY salary_year_avg DESC
+    salary_year_avg IS NOT NULL 
+    AND job_title_short = 'Data Analyst'
+
+ORDER BY salary_year_avg DESC --Ordering by yearly salary 
+
 LIMIT 10
