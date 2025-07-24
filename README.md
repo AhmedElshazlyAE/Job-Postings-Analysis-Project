@@ -61,7 +61,7 @@ LIMIT 10
 285000$-650000$ showing a high salary potential in
 the field
 
-![Top Paying Jobs](assets\TopPayingJobsBarPlot)
+![Top Paying Jobs](assets/TopPayingJobsBarPlot)
 **This Bar Graph shows each of the top 10 paying Data-Analyst titles by yearly salary**
 
 
@@ -144,7 +144,7 @@ Git, GitHub, and Linux suggest that collaboration and deployment skills are valu
 - Wide Toolset = Flexibility
 Additional tools like Looker, Spark, Snowflake, Oracle, SAS, and even VBA/Word show up, each with at least one mention.
 
-![Skills For Top Paying Jobs](assets\SkillsForTopPayingJobs.png)
+![Skills For Top Paying Jobs](assets/SkillsForTopPayingJobs.png)
 **This Funnel Graph shows the count of skills for each of the Top 10 Highest Paying Data-Analyst Jobs**
 
 In Conclusion to qualify for top-paying data analyst roles, candidates should focus on mastering Python, SQL, Excel, and a BI tool (Tableau or Power BI). Additionally, familiarity with big data platforms (e.g., BigQuery), workflow tools (Airflow), and collaborative tools (Git/GitHub).
@@ -218,7 +218,7 @@ Tableau and Power BI round out the top five:
 
     - Power BI (~39,000 jobs)
 
-![Most In Demand Skills](assets\MostInDemandSkills.png)
+![Most In Demand Skills](assets/MostInDemandSkills.png)
 
 🎯 Summary
 - SQL is the must-have skill
@@ -227,6 +227,69 @@ Tableau and Power BI round out the top five:
 - Tableau and Power BI are critical for visualization and insights delivery
 
 ### Top Skills Based On Salary
+To show the most the top Data-Analyst skills based on salary
+we rae going to use the AVG() aggregate function to find the average salary of each skill and then sort them in descending order
+to find the top 10
+
+```sql
+SELECT 
+    skills_dim.skills,
+    AVG(job_postings_fact.salary_year_avg) AS avg_salary
+
+FROM
+    job_postings_fact
+
+INNER JOIN
+    skills_job_dim
+    ON skills_job_dim.job_id = job_postings_fact.job_id
+
+INNER JOIN
+    skills_dim
+    ON skills_job_dim.skill_id = skills_dim.skill_id
+
+WHERE 
+    job_title_short = 'Data Analyst'
+    AND salary_year_avg IS NOT NULL
+
+GROUP BY 
+    skills_dim.skills
+
+ORDER BY 
+    avg_salary DESC
+    
+LIMIT 10
+```
+#### 🔍 Insights
+1. SVN (Apache Subversion) Leads with a Jaw-Dropping Average Salary
+SVN, a version control system, surprisingly tops the list with an average salary close to $400K/year.
+
+    - This may reflect niche, enterprise-level roles or legacy systems requiring high specialization and low supply of talent.
+
+
+2. Solidity Offers Premium Compensation for Blockchain Engineers
+Solidity, the smart contract language for Ethereum, offers an average salary above $170K/year.
+
+    - This aligns with the explosive growth in Web3, DeFi, and blockchain technology.
+
+
+3. Couchbase & Datarobot Indicate Value in Niche Tools
+Couchbase (a NoSQL database) and Datarobot (an AI/ML automation platform) rank highly.
+
+   - These technologies are common in data-intensive and enterprise AI environments.
+
+4. Golang & MXNet Are Valued in Scalable Systems & AI
+Golang is used for building high-performance backends and microservices.
+
+   - MXNet, while less mainstream than TensorFlow or PyTorch, is known in deep learning — especially with AWS.
+
+
+5. Data Science & DevOps Tools Earn Solid Salaries
+Tools like dplyr (R), VMware, Terraform, and Twilio round out the list with average salaries near $140K–$160K.
+
+   - These represent important skills in data manipulation, cloud infrastructure, and communication APIs.
+
+![Top Skill Based On Salary](assets/TopSkillsBasedOnSalary.png)
+**This chart reveals that niche or less commonly known tools (like SVN, Couchbase, MXNet, and Datarobot) offer some of the highest average salaries in tech, often due to their critical role in enterprise systems or emerging markets like blockchain.**
 
 
 
