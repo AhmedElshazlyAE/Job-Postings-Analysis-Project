@@ -1,5 +1,10 @@
 # 📌 Introduction
-This project focuses on analyzing a dataset of job postings to uncover key insights about hiring trends, required skills, company demands, and more. The goal is to use SQL to explore the data and answer relevant business questions that might help job seekers and HR professionals understand the job market better.
+This project analyzes a dataset of job postings to uncover valuable insights about the most in-demand and highest-paying skills for data analysts. Using SQL for data extraction and Power BI for interactive visualization, I explored patterns in job requirements and salaries to help identify which skills are most valuable in today’s job market.
+
+
+- Dataset used for the project [Job Postings Dataset](https://drive.google.com/drive/folders/1egWenKd_r3LRpdCf4SsqTeFZ1ZdY3DNx)
+
+- Queries used [queries folder](/queries)
 
 # 🖼️ Background
 Through this project, I aimed to improve my SQL querying skills, data analysis mindset, and workflow using version control. The dataset was cleaned, explored, and analyzed using SQL queries, and the results were interpreted to draw meaningful conclusions.
@@ -7,6 +12,9 @@ Through this project, I aimed to improve my SQL querying skills, data analysis m
 Whether you're interested in data analysis or just curious about the current job market, this project gives a glimpse into how data-driven decision-making can help us better understand employment trends.
 
 # 🛠️ Tools and Technologies Used
+
+- Power BI: For creating dynamic visualizations, interactive dashboards, and analyzing trends in job market data.
+
 - PostgreSQL: Used to store, query, and analyze the job postings dataset.
 
 - SQL For data cleaning, manipulation, and analysis.
@@ -16,6 +24,7 @@ Whether you're interested in data analysis or just curious about the current job
 - Git: Version control system used to manage changes and collaborate effectively.
 
 - GitHub: Hosting the project repository and sharing my work.
+
 
 # 📈The Analysis
 Each Query In this project is aimed at providing Data Analysts with
@@ -47,7 +56,7 @@ ORDER BY salary_year_avg DESC --Ordering by yearly salary
 LIMIT 10
 ```
 
-#### ✅ Key Observations:
+#### 🔍 Insights:
 
 - Titles like Sr Data Analyst and HC Data Analyst, Senior offer mid-to-high compensation, often linked with advanced tools or team coordination.
 
@@ -291,15 +300,97 @@ Tools like dplyr (R), VMware, Terraform, and Twilio round out the list with aver
 ![Top Skill Based On Salary](assets/TopSkillsBasedOnSalary.png)
 **This chart reveals that niche or less commonly known tools (like SVN, Couchbase, MXNet, and Datarobot) offer some of the highest average salaries in tech, often due to their critical role in enterprise systems or emerging markets like blockchain.**
 
+### Most Optimal Skills To Learn (High-Paying & High-demand)
+To show the most optimal skills to learn as a Data-Analyst
+We are going to find the average yearly salary of each skill
+and get the job demand for each then we are going to order
+the table by demand and yearly average salary to find the most
+optimal skills
 
+```sql
+SELECT 
+    skills_dim.skills,
+    COUNT(job_postings_fact.*) AS demand,
+    ROUND(AVG(salary_year_avg),1) AS avg_salary
 
+FROM 
+    job_postings_fact
 
+INNER JOIN 
+    skills_job_dim
+    ON job_postings_fact.job_id = skills_job_dim.job_id
 
+INNER JOIN
+    skills_dim
+    ON skills_job_dim.skill_id = skills_dim.skill_id
 
+WHERE
+    job_title_short = 'Data Analyst'
+    AND salary_year_avg IS NOT NULL 
 
-TODO:
-- What are the top paying data-analyst jobs (Done)
-- What are the skills required for these top-paying roles (Done)
-- What are the most in demand skills for a certain role (Done)
-- What are the top skills based on salary for my role (Done)
-- What are the most optimal skills to learn (High paying and High demand)
+GROUP BY
+    skills
+    
+ORDER BY 2 DESC,3 DESC
+
+LIMIT 10
+```
+
+#### 🔍 Insights:
+- SQL Stands Out as the Top Skill Overall
+
+   - SQL shows both the highest demand and one of the highest average salaries, making it the most optimal skill in this dataset.
+
+    - This aligns with SQL being a fundamental requirement for most data analyst roles.
+
+- Python is Highly Valued
+
+    - Python has the second-highest demand and a high average salary (slightly higher than SQL).
+
+    - This shows that Python is not just popular but also well-compensated, making it a strong second core skill.
+
+- Excel Remains in High Demand
+
+    - Despite being a more traditional tool, Excel still shows very high demand.
+
+    - However, its average salary is noticeably lower, indicating it’s often associated with more entry-level or routine analyst roles.
+
+- Tableau and R Show a Trade-off
+
+    - Both R and Tableau have lower demand compared to SQL and Python.
+
+    - Their average salaries are respectable (similar to Python and SQL), but they are likely used in more specialized or niche roles (e.g., R in academia or Tableau in BI-heavy environments).
+
+![Most in demand skills](assets/MostOptimalSkills.png)
+**This area chart shows the most optimal skills for Data-Analyst.
+blue area is the average yearly salary and the purple area shows the demand for the skill**
+
+🎯Summary
+- Demand Doesn’t Always Equal High Pay
+
+- Excel and Tableau show high demand but lower salaries relative to Python and SQL.
+
+- Suggests that learning high-demand tools is important but must be combined with high-leverage technical skills like SQL and Python for better pay.
+
+# 💡 What I Learned
+1. The project helped me advance my SQL and Power BI capabilities by practically exploring and visualizing data. I learned to:
+Compose complex SQL queries to join tables, aggregate data, and arrive at important insights from job market datasets.
+
+2. Determine high-paying and in-demand skills for data analysts through real job postings.
+
+3. Design clear and insightful Power BI visuals like cluster bar charts and area plots to tell data in a narrative.
+
+4. Make conclusions from data insights and turn them into real-life takeaways that could be employed to guide career decisions.
+
+5. Use data analysis not just to report facts, but to give actual answers—such as what to learn and why.
+
+6. This was also my first experience building a data storytelling project in Power BI from the ground up, and it taught me so much more about how data pipelines can be combined with business intelligence tools.
+
+# ✅ Conclusion
+This project was a valuable step on my journey towards being a data analyst. Combining SQL and Power BI, I was able to dive into real job market statistics and find interesting facts about the best skills when it comes to salary and demand. The analysis showed that tools like Python and SQL are still the tops when it comes to salary and hiring demand, and Tableau, PowerBI and Excel proficiency are still just as vital.
+
+Beyond the production of visuals, this project allowed me to think critically with data—how to take raw information and convert it into something that helps solve important questions. It also gave me more assurance with Power BI as a tool for analysis and storytelling.
+
+I am excited to continue using these skills in future projects and further developing my data science and analytics capabilities.
+
+**Some of the Insights were written by Chat-GPT**
