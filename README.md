@@ -392,5 +392,3 @@ This project was a valuable step on my journey towards being a data analyst. Com
 Beyond the production of visuals, this project allowed me to think critically with data—how to take raw information and convert it into something that helps solve important questions. It also gave me more assurance with Power BI as a tool for analysis and storytelling.
 
 I am excited to continue using these skills in future projects and further developing my data science and analytics capabilities.
-
-**Some of the Insights were written by Chat-GPT**
